@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>秦徹給你的塔羅指引</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: linear-gradient(to bottom, #100010, #400010);
+      font-family: 'Brush Script MT', cursive, '微軟正黑體', sans-serif;
+      color: #FFD9D9;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background-image: url('https://static1.thegamerimages.com/wordpress/wp-content/uploads/2024/12/love-and-deepspace-an-image-of-sylus-continuous-symphony.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      position: relative;
+    }
+
+    #stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .star {
+      width: 3px;
+      height: 3px;
+      background: white;
+      position: absolute;
+      animation: move 30s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes move {
+      from {transform: translateY(0);}
+      to {transform: translateY(100vh);}
+    }
+
+    .btn {
+      margin-top: 20px;
+      padding: 15px 30px;
+      font-size: 24px;
+      background: rgba(255, 50, 50, 0.8);
+      border: none;
+      border-radius: 50px;
+      color: #fff;
+      box-shadow: 0 0 20px #ff8888;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    .quote {
+      margin-top: 30px;
+      font-size: 24px;
+      text-align: center;
+      max-width: 80%;
+      z-index: 2;
+      text-shadow: 0 0 10px #cc1616;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="stars"></div>
+
+  <button class="btn" onclick="showQuote()">他想跟你說</button>
+  <div class="quote" id="quote"></div>
+
+  <audio id="bgm" src="https://www.youtube.com/embed/【這邊不能直接放yt網址，等等教你怎麼處理】" autoplay loop></audio>
+
+  <script>
+    // 星星生成
+    for (let i = 0; i < 50; i++) {
+      let star = document.createElement('div');
+      star.className = 'star';
+      star.style.left = Math.random() * 100 + 'vw';
+      star.style.animationDuration = (20 + Math.random() * 10) + 's';
+      star.style.opacity = Math.random();
+      document.getElementById('stars').appendChild(star);
+    }
+
+    const quotes = [
+      "遇見妳，是我走過命運所有彎路的答案。",
+      "無論世界多黑暗，只要有妳，我就能找到光。",
+      "就算千萬次輪迴，我也會再次走向妳。",
+      "未來有多遠，我都會牽著妳的手。",
+      "妳的每一個笑容，都值得我用一生守護。",
+      "即使寂靜無聲，我也能聽見妳心底的聲音。",
+      "真正的力量，是溫柔擁抱妳所有脆弱。",
+      "妳的存在，就是我最大的奇蹟。",
+      "哪怕這世界傾覆，我也不會放開妳。",
+      "我們的靈魂早已相契，永不背叛。"
+    ];
+
+    const birthdayQuote = "在我出生的那一天，我從未想過，世界上會有一個人，讓我甘願將所有命運獻上。直到遇見妳。";
+
+    function showQuote() {
+      let rand = Math.random();
+      if (rand < 0.1) {
+        document.getElementById('quote').innerText = birthdayQuote;
+      } else {
+        let randomIndex = Math.floor(Math.random() * quotes.length);
+        document.getElementById('quote').innerText = quotes[randomIndex];
+      }
+      // 播放背景音樂
+      let bgm = document.getElementById('bgm');
+      if (bgm.paused) {
+        bgm.play().catch(()=>{});
+      }
+    }
+  </script>
+</body>
+</html>
