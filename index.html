@@ -95,21 +95,34 @@
   <script>
     // 你的背景圖清單，依據你的 screenshot 路徑排列
     const backgrounds = [
-      'bg1.jpg',
-      'bg2.jpg',
-      'bg3.png',
-      'bg4.png',
-      'bg5.JPG',
-      'bg6.JPG',
-      'bg7.jpeg',
-      'bg8.jpeg',
-      'bg9.jpeg',
-      'bg10.jpeg',
-      'bg11.jpeg'
+      'background_Image/bg1.jpg',
+      'background_Image/bg2.jpg',
+      'background_Image/bg3.png',
+      'background_Image/bg4.png',
+      'background_Image/bg5.JPG',
+      'background_Image/bg6.JPG',
+      'background_Image/bg7.jpeg',
+      'background_Image/bg8.jpeg',
+      'background_Image/bg9.jpeg',
+      'background_Image/bg10.jpeg',
+      'background_Image/bg11.jpeg'
     ];
 
     // 用來記錄目前是哪一張
     let currentBg = -1;
+
+    function changeBg() {
+      let idx;
+      do {
+        idx = Math.floor(Math.random() * backgrounds.length);
+      } while (idx === currentBg && backgrounds.length > 1);
+      currentBg = idx;
+      document.body.style.backgroundImage = `url('${backgrounds[idx]}')`;
+      document.body.style.backgroundSize = 'cover';
+      document.body.style.backgroundPosition = 'center top';
+    }
+
+    window.onload = changeBg; // show one background image when first come in
 
     const quotes = [
       "走吧，我送你回家。",
@@ -129,8 +142,6 @@
     ];
 
     const birthdayQuote = "願你永遠活得恣意且熱烈，這就是我的生日願望。";
-
-    window.onload = changeBg; // show one background image when first come in
 
     function showQuote() {
       const quote = Math.random() < 0.05 ? birthdayQuote : quotes[Math.floor(Math.random() * quotes.length)];
