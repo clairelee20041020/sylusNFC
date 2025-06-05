@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <title>秦徹語錄</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <style>
     body {
       margin: 0;
@@ -30,12 +29,6 @@
       background: none;
     }
 
-    .with-background {
-      background: #000 !important;
-      border-radius: 0 !important;
-      box-shadow: none;
-    }
-
     .result-card h2 {
       font-size: 28px;
       margin-bottom: 20px;
@@ -57,7 +50,6 @@
       position: absolute;
       bottom: 15px;
     }
-
     .footer.show-in-card {
       position: static;
       margin-top: 20px;
@@ -83,17 +75,16 @@
   <div class="result-card" id="resultCard">
     <h2>秦徹想對你說</h2>
     <p class="quote" id="quote">（點下面按鈕，讓他親口告訴你）</p>
-    <p class="footer show-in-card" id="footerInCard" style="display: none;">© Sylus · 秦徹語錄</p>
+    <!-- 內部 footer 已經不需要操作，所以可以保留或直接刪除 -->
   </div>
 
   <button onclick="showQuote()">他想跟你說</button>
-  <button onclick="captureCard()">儲存語錄圖片</button>
   <p class="footer" id="footerBelow">© Sylus · 秦徹語錄</p>
 
   <audio id="bgm" src="final.mp3" autoplay loop style="display:none"></audio>
 
   <script>
-    // 你的背景圖清單，依據你的 screenshot 路徑排列
+    // 你的背景圖清單
     const backgrounds = [
       'background_Image/bg1.jpg',
       'background_Image/bg2.jpg',
@@ -107,8 +98,6 @@
       'background_Image/bg10.jpeg',
       'background_Image/bg11.jpeg'
     ];
-
-    // 用來記錄目前是哪一張
     let currentBg = -1;
 
     function changeBg() {
@@ -121,8 +110,7 @@
       document.body.style.backgroundSize = 'cover';
       document.body.style.backgroundPosition = 'center top';
     }
-
-    window.onload = changeBg; // show one background image when first come in
+    window.onload = changeBg;
 
     const quotes = [
       "走吧，我送你回家。",
@@ -140,44 +128,17 @@
       "在我這裡，你不需要遮掩，我也可以是那個幫你搔肚皮的人。",
       "我忙或不忙，都不影響我視訊看你"
     ];
-
     const birthdayQuote = "願你永遠活得恣意且熱烈，這就是我的生日願望。";
 
     function showQuote() {
       const quote = Math.random() < 0.05 ? birthdayQuote : quotes[Math.floor(Math.random() * quotes.length)];
       document.getElementById("quote").innerText = quote;
-
       const bgm = document.getElementById('bgm');
       if (bgm.paused) {
         bgm.play().catch(() => { });
       }
-
-      changeBg(); // change background image at every click
-    }
-
-    function captureCard() {
-      const card = document.getElementById("resultCard");
-      const footer = document.getElementById("footerInCard");
-      const pageFooter = document.getElementById("footerBelow");
-
-      // 顯示內部 footer、加背景
-      footer.style.display = 'block';
-      card.classList.add("with-background");
-      pageFooter.style.display = 'none';
-
-      html2canvas(card).then(canvas => {
-        const link = document.createElement('a');
-        link.download = '秦徹語錄.png';
-        link.href = canvas.toDataURL();
-        link.click();
-
-        // 還原
-        footer.style.display = 'none';
-        card.classList.remove("with-background");
-        pageFooter.style.display = 'block';
-      });
+      changeBg();
     }
   </script>
 </body>
-
 </html>
